@@ -124,3 +124,42 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+.contact-body {
+    background-color: #f2f2f2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.contact-banner {
+    background-color: #00796b;
+    color: white;
+}
+
+.contact-card {
+    background-color: #20c997;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.contact-card h3 {
+    font-size: 1.25rem;
+    line-height: 1.6;
+}
+
+.contact-agent-panel {
+    background-color: white;
+    padding: 2rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-agent-icon {
+    background-color: #20c997;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
