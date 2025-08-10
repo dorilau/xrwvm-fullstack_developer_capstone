@@ -143,6 +143,7 @@ def add_review(request):
     except Exception as e:
         return JsonResponse({"status": 500, "message": str(e)})
 
+
 def get_cars(request):
     count = CarMake.objects.filter().count()
     print(count)
