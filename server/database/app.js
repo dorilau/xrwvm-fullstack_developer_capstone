@@ -71,30 +71,29 @@ app.get('/fetchDealers', async (req, res) => {
 
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
-    const state= req.params.state;
-    try{
-        const dealers = await Dealer.find({state:state});
-        res.status(200),json(dealers);
+    const state = req.params.state;
+    try {
+      const dealers = await Dealer.find({ state: state });
+      res.status(200).json(dealers);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-    catch(error){
-        res.status(500).json({message:error.message});
-    }
-});
+  });
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
     const id = req.params.id;
-    try{
-        const dealers =await Dealer.findOne({id:id});
-        if(dealer){
-            res.status(200).json(dealer);
-        }else{
-            res.status(404).json({message:'Dealer not found'});
-        }
-    }catch(error){
-        res.statusMessage(500).json({message:error.message});
+    try {
+      const dealer = await Dealer.findOne({ id: id });
+      if (dealer) {
+        res.status(200).json(dealer);
+      } else {
+        res.status(404).json({ message: 'Dealer not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-});
+  });
 
 //Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
