@@ -1,9 +1,7 @@
 # Uncomment the following imports before adding the Model code
 
-from django.db import models
-from django.utils.timezone import now
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from django.db import models
 
 # Create your models here.
 
@@ -13,15 +11,15 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # - Any other fields you would like to include in car make model
 # - __str__ method to print a car make object
 
+
 class CarMake(models.Model):
-
-
     name = models.CharField(max_length=100)
-    description=models.TextField()
-    country=models.CharField(max_length=100, null=True, blank=True)
-   
+    description = models.TextField()
+    country = models.CharField(max_length=100, null=True, blank=True)
+
     def __str__(self):
-        return self.name 
+        return self.name
+
 
 class CarModel(models.Model):
     FUELTYPE_CHOICES = [
@@ -39,20 +37,21 @@ class CarModel(models.Model):
         ('SUV', 'SUV'),
         ('WAGON', 'Wagon'),
     ]
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     dealer_id = models.IntegerField(null=True, blank=True)
-    name=models.CharField(max_length=100, null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
     type = models.CharField(max_length=10, choices=CAR_TYPES, default='SUV')
-    year = models.IntegerField(default=2023,
-        validators=[
-            MaxValueValidator(2023),
-            MinValueValidator(2015)
-        ])
+    year = models.IntegerField(
+        default=2023,
+        validators=[MaxValueValidator(2023), MinValueValidator(2015)],
+    )
     fuel_type = models.CharField(max_length=100, choices=FUELTYPE_CHOICES)
-    transmission_type=models.CharField(max_length=100, choices=TRANSMISSION_CHOICES)
+    transmission_type = models.CharField(
+        max_length=100, choices=TRANSMISSION_CHOICES
+    )
 
     def __str__(self):
-        return self.name 
+        return self.name
 
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
