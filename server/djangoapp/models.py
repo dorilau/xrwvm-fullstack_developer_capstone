@@ -13,6 +13,47 @@
 # - Any other fields you would like to include in car make model
 # - __str__ method to print a car make object
 
+class CarMake(models.Model):
+
+
+    name = models.CharField(max_length=100)
+    description=models.TextField()
+    country=models.CharField(max_length=100)
+   
+    def __str__(self):
+        return self.name 
+
+class CarModel(models.Model):
+    FUELTYPE_CHOICES = [
+        ('PETROL', 'Petrol'),
+        ('HYBRID', 'Hybrid'),
+        ('ELECTRIC', 'Electric'),
+    ]
+
+    TRANSMISSION_CHOICES = [
+        ('AUTO', 'Automatic'),
+        ('MANUAL', 'Manual'),
+    ]
+    CAR_TYPES = [
+        ('SEDAN', 'Sedan'),
+        ('SUV', 'SUV'),
+        ('WAGON', 'Wagon'),
+    ]
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  
+    dealer_id = models.IntegerField()
+    name=models.CharField(max_length=100)
+    type = models.CharField(max_length=10, choices=CAR_TYPES, default='SUV')
+    year = models.IntegerField(default=2023,
+        validators=[
+            MaxValueValidator(2023),
+            MinValueValidator(2015)
+        ])
+    fuel_type = models.CharField(max_length=100, choices=FUELTYPE_CHOICES)
+    transmission_type=models.CharField(max_length=100, choices=TRANSMISSION_CHOICES)
+
+    def __str__(self):
+        return self.name 
+
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
 # - Many-To-One relationship to Car Make model (One Car Make has many
