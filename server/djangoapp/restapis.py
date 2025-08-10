@@ -1,5 +1,6 @@
 # Uncomment the imports below before you add the function code
 import requests
+from urllib.parse import urljoin
 import os
 from dotenv import load_dotenv
 
@@ -28,15 +29,23 @@ def get_request(endpoint, **kwargs):
         # If any error occurs
         print("Network exception occurred")
 
+
 def analyze_review_sentiments(text):
-    request_url = sentiment_analyzer_url+"analyze/"+text
+    base = sentiment_analyzer_url.rstrip("/") + "/"
+    url = urljoin(base, "analyze")
     try:
-        # Call get method of requests library with URL and parameters
-        response = requests.get(request_url)
-        return response.json()
+        resp = requests.post(url, json={"review": text or ""}, timeout=8)
+        resp.raise_for_status()
+        data = resp.json() if resp.content else {}
+        if isinstance(data, dict):
+            if "sentiment" in data:
+                return data
+            if "label" in data:
+                return {"sentiment": data["label"]}
+        return {"sentiment": "unknown"}
     except Exception as err:
-        print(f"Unexpected {err=}, {type(err)=}")
-        print("Network exception occurred")
+        return {"sentiment": "unknown", "error": str(err)}
+
 
 def post_review(data_dict):
     request_url = backend_url+"/insert_review"
